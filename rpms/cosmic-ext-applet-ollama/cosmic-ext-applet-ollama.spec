@@ -33,6 +33,7 @@ BuildRequires:  cargo
 BuildRequires:  just
 BuildRequires:  libxkbcommon-devel
 BuildRequires:  git-core
+BuildRequires:  openssl-devel
 
 %global _description %{expand:
 %{summary}.}
