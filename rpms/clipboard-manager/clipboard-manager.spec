@@ -31,6 +31,9 @@ BuildRequires:  cargo
 BuildRequires:  just
 BuildRequires:  libxkbcommon-devel
 BuildRequires:  git-core
+BuildRequires:  sqlite-devel
+
+Requires:       sqlite
 
 %global _description %{expand:
 %{summary}.}
