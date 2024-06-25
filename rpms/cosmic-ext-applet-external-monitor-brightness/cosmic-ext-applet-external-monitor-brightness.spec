@@ -16,8 +16,8 @@ Version:        %{ver}~git%{date}.%{sub %{commit} 1 7}
 Release:        %autorelease
 Summary:        External Monitor Brightness Applet for COSMIC
 
-SourceLicense:  MIT
-License:        MIT
+SourceLicense:  GPL-3.0
+License:        GPL-3.0
 
 URL:            https://github.com/maciekk64/cosmic-ext-applet-external-monitor-brightness.git
 	
@@ -60,10 +60,7 @@ fi
 sed 's/\(.*\) (.*#\(.*\))/\1+git\2/' -i cargo-vendor.txt
 
 %install
-mkdir -p %{buildroot}/%{_bindir}
-install -Dm0755 target/release/%{name} %{buildroot}/%{_bindir}/%{name}
-install -Dm0644 data/com.maciekk64.CosmicExtAppletExternalMonitorBrightness.desktop %{buildroot}/%{_datadir}/applications/com.maciekk64.CosmicExtAppletExternalMonitorBrightness.desktop
-
+just rootdir=%{buildroot} prefix=%{_prefix} install
 %if %{with check}
 %check
 %cargo_test
@@ -74,7 +71,7 @@ install -Dm0644 data/com.maciekk64.CosmicExtAppletExternalMonitorBrightness.desk
 %license cargo-vendor.txt
 %doc README.md
 %{_bindir}/%{name}
-%{_datadir}/applications/com.maciekk64.CosmicExtAppletExternalMonitorBrightness.desktop
+%{_datadir}/applications/io.github.maciekk64.CosmicExtAppletExternalMonitorBrightness.desktop
 
 %changelog
 %autochangelog

@@ -2,7 +2,7 @@
 PACKAGE := 'cosmic-ext-applet-external-monitor-brightness'
 VERSION := '0.1.0'
 # can't be latest here
-COMMIT := '93cfbca9f97481168ed87bf6dabcb693b014610a'
+COMMIT := 'b6fa8c439f57ef5e2233b5baa81c4a30704ca218'
 REPO := 'https://github.com/maciekk64/cosmic-ext-applet-external-monitor-brightness'
 
 
