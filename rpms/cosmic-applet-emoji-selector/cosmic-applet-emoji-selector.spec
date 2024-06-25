@@ -31,7 +31,6 @@ BuildRequires:  cargo
 BuildRequires:  just
 BuildRequires:  libxkbcommon-devel
 BuildRequires:  git-core
-BuildRequires:  systemd-devel
 
 %global _description %{expand:
 %{summary}.}
