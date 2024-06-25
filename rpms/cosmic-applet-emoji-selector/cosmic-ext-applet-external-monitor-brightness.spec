@@ -5,24 +5,24 @@ ExcludeArch: %{ix86}
 # prevent library files from being installed
 %global cargo_install_lib 0
 
-%global crate clipboard-manager
+%global crate cosmic-applet-emoji-selector
 
 %global ver ###
 %global commit ###
 %global date ###
 
-Name:           clipboard-manager
+Name:           cosmic-applet-emoji-selector
 Version:        %{ver}~git%{date}.%{sub %{commit} 1 7}
 Release:        %autorelease
-Summary:        Clipboard manager for COSMIC
+Summary:        Emoji Selector for COSMIC
 
-SourceLicense:  MIT
-License:        MIT
+SourceLicense:  MPL-2.0
+License:        MPL-2.0
 
-URL:            https://github.com/wiiznokes/clipboard-manager.git
+URL:            https://github.com/leb-kuchen/emoji-selector-applet-for-cosmic.git
 	
-Source:         clipboard-manager-%{commit}.tar.xz
-Source:         clipboard-manager-%{commit}-vendor.tar.xz
+Source:         %{name}-%{commit}.tar.xz
+Source:         %{name}-%{commit}-vendor.tar.xz
 
 BuildRequires:  cargo-rpm-macros >= 26
 BuildRequires:  rustc
@@ -31,9 +31,6 @@ BuildRequires:  cargo
 BuildRequires:  just
 BuildRequires:  libxkbcommon-devel
 BuildRequires:  git-core
-BuildRequires:  sqlite-devel
-
-Requires:       sqlite
 
 %global _description %{expand:
 %{summary}.}
@@ -62,7 +59,9 @@ fi
 sed 's/\(.*\) (.*#\(.*\))/\1+git\2/' -i cargo-vendor.txt
 
 %install
-just install
+mkdir -p %{buildroot}/%{_bindir}
+install -Dm0755 target/release/%{name} %{buildroot}/%{_bindir}/%{name}
+
 
 %if %{with check}
 %check
@@ -74,9 +73,8 @@ just install
 %license LICENSE.dependencies
 %license cargo-vendor.txt
 %doc README.md
-%{_bindir}/clipboard-manager
-%{_datadir}/applications/io.github.wiiznokes.clipboard-manager.desktop
-%{_datadir}/icons/hicolor/scalable/apps/io.github.wiiznokes.clipboard-manager.svg
+%{_bindir}/%{name}
+%{_datadir}/applications/com.maciekk64.CosmicExtAppletExternalMonitorBrightness.desktop
 
 %changelog
 %autochangelog
