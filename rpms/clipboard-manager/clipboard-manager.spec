@@ -62,7 +62,7 @@ fi
 sed 's/\(.*\) (.*#\(.*\))/\1+git\2/' -i cargo-vendor.txt
 
 %install
-just install
+just rootdir=%{buildroot} prefix=%{_prefix} install
 
 %if %{with check}
 %check
