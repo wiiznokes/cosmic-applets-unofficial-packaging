@@ -1,4 +1,6 @@
-#!/bin/bash -x
+#!/bin/bash
+
+set -ex
 
 # name of the crate/package
 name=$1
@@ -11,34 +13,37 @@ path_to_spec=$4
 # repo link
 repo=$5
 
-LATEST="latest"
+skip_vendor=${6:-'0'}
 
-# Clone repo and cd into it
-mkdir $name-$commit && cd $name-$commit && git clone --recurse-submodules $repo .
 
-# Get latest commit hash if commit is set to latest
-if [[ "$commit" == "$LATEST" ]]
-then
-    commit=$(git rev-parse HEAD)
-    cd .. && mv $name-latest $name-$commit && cd $name-$commit
+if [ $skip_vendor -ne '1' ]; then
+    # Clone repo and cd into it
+    mkdir $name-$commit && cd $name-$commit && git clone --recurse-submodules $repo .
+
+    # Get latest commit hash if commit is set to latest
+    if [[ "$commit" == 'latest' ]]
+    then
+        commit=$(git rev-parse HEAD)
+        cd .. && mv $name-latest $name-$commit && cd $name-$commit
+    fi
+
+    # Reset to specified commit
+    git reset --hard $commit
+
+    # Vendor dependencies and zip vendor
+    mkdir .vendor
+    cargo vendor > .vendor/config.toml
+    tar -pcJf $name-$commit-vendor.tar.xz vendor && mv $name-$commit-vendor.tar.xz ../$name-$commit-vendor.tar.xz
+    # Back into parent directory
+    rm -rf vendor && cd ..
+
+    # Zip source
+    tar -pcJf $name-$commit.tar.xz $name-$commit
+    rm -rf $name-$commit
 fi
 
-# Reset to specified commit
-git reset --hard $commit
-
-# Vendor dependencies and zip vendor
-mkdir .vendor
-cargo vendor > .vendor/config.toml
-tar -pcJf $name-$commit-vendor.tar.xz vendor && mv $name-$commit-vendor.tar.xz ../$name-$commit-vendor.tar.xz
-# Back into parent directory
-rm -rf vendor && cd ..
-
-# Zip source
-tar -pcJf $name-$commit.tar.xz $name-$commit
-rm -rf $name-$commit
-
 # Get specfile
-cp $path_to_spec $name.spec 2>/dev/null || :
+cp $path_to_spec $name.spec
 
 # Make replacements to specfile
 sed -i "/^%global ver / s/.*/%global ver $version/" $name.spec
@@ -50,4 +55,4 @@ sed -i "/^%global date / s/.*/%global date $current_date/" $name.spec
 ls -a
 pwd
 
-echo Done! $1 $2 $3 $4 $5
+echo Done! $1 $2 $3 $4 $5 $skip_vendor
