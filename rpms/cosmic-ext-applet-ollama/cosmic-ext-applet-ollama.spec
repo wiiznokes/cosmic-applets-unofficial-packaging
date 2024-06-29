@@ -22,8 +22,8 @@ License:        GPL-3.0
 URL:            https://github.com/elevenhsoft/cosmic-ext-applet-ollama.git
 
 
-Source:         cosmic-ext-applet-ollama-%{commit}.tar.xz
-Source:         cosmic-ext-applet-ollama-%{commit}-vendor.tar.xz
+Source:         %{crate}-%{commit}.tar.xz
+Source:         %{crate}-%{commit}-vendor.tar.xz
 
 
 BuildRequires:  cargo-rpm-macros >= 26
@@ -74,7 +74,7 @@ just rootdir=%{buildroot} prefix=%{_prefix} install
 %license LICENSE.dependencies
 %license cargo-vendor.txt
 %doc README.md
-%{_bindir}/cosmic-ext-applet-ollama
+%{_bindir}/%{crate}
 %{_datadir}/applications/io.github.elevenhsoft.CosmicExtAppletOllama.desktop
 %{_datadir}/icons/hicolor/scalable/apps/io.github.elevenhsoft.CosmicExtAppletOllama-symbolic.svg
 

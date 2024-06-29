@@ -5,13 +5,13 @@ ExcludeArch: %{ix86}
 # prevent library files from being installed
 %global cargo_install_lib 0
 
-%global crate clipboard-manager
+%global crate cosmic-ext-applet-clipboard-manager
 
 %global ver ###
 %global commit ###
 %global date ###
 
-Name:           clipboard-manager
+Name:           cosmic-ext-applet-clipboard-manager
 Version:        %{ver}~git%{date}.%{sub %{commit} 1 7}
 Release:        %autorelease
 Summary:        Clipboard manager for COSMIC
@@ -21,8 +21,8 @@ License:        MIT
 
 URL:            https://github.com/wiiznokes/clipboard-manager.git
 	
-Source:         clipboard-manager-%{commit}.tar.xz
-Source:         clipboard-manager-%{commit}-vendor.tar.xz
+Source:         %{crate}-%{commit}.tar.xz
+Source:         %{crate}-%{commit}-vendor.tar.xz
 
 BuildRequires:  cargo-rpm-macros >= 26
 BuildRequires:  rustc
@@ -74,9 +74,9 @@ just rootdir=%{buildroot} prefix=%{_prefix} install
 %license LICENSE.dependencies
 %license cargo-vendor.txt
 %doc README.md
-%{_bindir}/clipboard-manager
-%{_datadir}/applications/io.github.wiiznokes.clipboard-manager.desktop
-%{_datadir}/icons/hicolor/scalable/apps/io.github.wiiznokes.clipboard-manager.svg
+%{_bindir}/%{crate}
+%{_datadir}/applications/io.github.wiiznokes.%{name}.desktop
+%{_datadir}/icons/hicolor/scalable/apps/io.github.wiiznokes.%{name}-symbolic.svg
 
 %changelog
 %autochangelog

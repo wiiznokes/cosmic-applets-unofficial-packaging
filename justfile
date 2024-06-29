@@ -1,9 +1,9 @@
 
-PACKAGE := 'cosmic-ext-applet-external-monitor-brightness'
+PACKAGE := 'cosmic-ext-applet-clipboard-manager'
 VERSION := '0.1.0'
 # can't be latest here
-COMMIT := 'b6fa8c439f57ef5e2233b5baa81c4a30704ca218'
-REPO := 'https://github.com/maciekk64/cosmic-ext-applet-external-monitor-brightness'
+COMMIT := '0d806ecb2b715f93bfc77eab92dd9e79a2361b1e'
+REPO := 'https://github.com/wiiznokes/clipboard-manager'
 
 
 vendor:

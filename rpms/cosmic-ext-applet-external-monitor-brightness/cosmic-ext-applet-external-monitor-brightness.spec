@@ -21,8 +21,8 @@ License:        GPL-3.0
 
 URL:            https://github.com/maciekk64/cosmic-ext-applet-external-monitor-brightness.git
 	
-Source:         %{name}-%{commit}.tar.xz
-Source:         %{name}-%{commit}-vendor.tar.xz
+Source:         %{crate}-%{commit}.tar.xz
+Source:         %{crate}-%{commit}-vendor.tar.xz
 
 BuildRequires:  cargo-rpm-macros >= 26
 BuildRequires:  rustc
@@ -70,7 +70,7 @@ just rootdir=%{buildroot} prefix=%{_prefix} install
 %license LICENSE.dependencies
 %license cargo-vendor.txt
 %doc README.md
-%{_bindir}/%{name}
+%{_bindir}/%{crate}
 %{_datadir}/applications/io.github.maciekk64.CosmicExtAppletExternalMonitorBrightness.desktop
 
 %changelog
