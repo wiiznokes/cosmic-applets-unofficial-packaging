@@ -77,6 +77,7 @@ just rootdir=%{buildroot} prefix=%{_prefix} install
 %{_bindir}/%{crate}
 %{_datadir}/applications/io.github.wiiznokes.%{name}.desktop
 %{_datadir}/icons/hicolor/scalable/apps/io.github.wiiznokes.%{name}-symbolic.svg
+%{_sysconfdir}/environment.d/%{name}.conf
 
 %changelog
 %autochangelog
