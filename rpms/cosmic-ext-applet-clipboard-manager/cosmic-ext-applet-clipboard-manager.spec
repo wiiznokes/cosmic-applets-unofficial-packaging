@@ -16,8 +16,8 @@ Version:        %{ver}~git%{date}.%{sub %{commit} 1 7}
 Release:        %autorelease
 Summary:        Clipboard manager for COSMIC
 
-SourceLicense:  MIT
-License:        MIT
+SourceLicense:  GPL-3.0
+License:        GPL-3.0
 
 URL:            https://github.com/wiiznokes/clipboard-manager.git
 	
