@@ -55,7 +55,7 @@ else
 fi
 
 %build
-%cargo_build
+cargo build --profile=release-lto
 %{cargo_license_summary}
 %{cargo_license} > LICENSE.dependencies
 %{cargo_vendor_manifest}
