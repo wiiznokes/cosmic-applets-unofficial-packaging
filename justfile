@@ -2,9 +2,10 @@
 PACKAGE := 'cosmic-ext-applet-clipboard-manager'
 VERSION := '0.1.0'
 # can't be latest here
-COMMIT := '0d806ecb2b715f93bfc77eab92dd9e79a2361b1e'
+COMMIT := '22c960d3acbb30a56440add20858818ca91f78ee'
 REPO := 'https://github.com/wiiznokes/clipboard-manager'
 
+all: vendor sources spec build
 
 vendor:
     . ./scripts/vendor-srpm.sh {{PACKAGE}} {{VERSION}} {{COMMIT}} rpms/{{PACKAGE}}/{{PACKAGE}}.spec {{REPO}}
