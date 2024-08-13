@@ -5,24 +5,24 @@ ExcludeArch: %{ix86}
 # prevent library files from being installed
 %global cargo_install_lib 0
 
-%global crate cosmic-applet-emoji-selector
+%global crate cosmic-applet-apps-menu
 
 %global ver ###
 %global commit ###
 %global date ###
 
-Name:           cosmic-applet-emoji-selector
+Name:           cosmic-ext-applet-apps-menu
 Version:        %{ver}~git%{date}.%{sub %{commit} 1 7}
 Release:        %autorelease
-Summary:        Emoji Selector for COSMIC
+Summary:        Category based menu for apps for COSMIC
 
-SourceLicense:  MPL-2.0
-License:        MPL-2.0
+SourceLicense:  GPL-3.0
+License:        GPL-3.0
 
-URL:            https://github.com/leb-kuchen/emoji-selector-applet-for-cosmic.git
+URL:            https://github.com/leb-kuchen/apps-menu-applet-for-cosmic.git
 	
-Source:         %{name}-%{commit}.tar.xz
-Source:         %{name}-%{commit}-vendor.tar.xz
+Source:         %{crate}-%{commit}.tar.xz
+Source:         %{crate}-%{commit}-vendor.tar.xz
 
 BuildRequires:  cargo-rpm-macros >= 26
 BuildRequires:  rustc
@@ -59,9 +59,7 @@ fi
 sed 's/\(.*\) (.*#\(.*\))/\1+git\2/' -i cargo-vendor.txt
 
 %install
-mkdir -p %{buildroot}/%{_bindir}
-install -Dm0755 target/release/%{name} %{buildroot}/%{_bindir}/%{name}
-
+just rootdir=%{buildroot} prefix=%{_prefix} install
 
 %if %{with check}
 %check
@@ -73,8 +71,11 @@ install -Dm0755 target/release/%{name} %{buildroot}/%{_bindir}/%{name}
 %license LICENSE.dependencies
 %license cargo-vendor.txt
 %doc README.md
-%{_bindir}/%{name}
-%{_datadir}/applications/com.maciekk64.CosmicExtAppletExternalMonitorBrightness.desktop
+%{_bindir}/%{crate}
+%{_datadir}/applications/io.github.wiiznokes.%{name}.desktop
+%{_datadir}/icons/hicolor/scalable/apps/io.github.wiiznokes.%{name}-symbolic.svg
+%{_datadir}/%{name}/migrations/*
+%{_prefix}/lib/environment.d/%{name}.conf
 
 %changelog
 %autochangelog

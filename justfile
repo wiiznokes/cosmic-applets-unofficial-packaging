@@ -1,9 +1,9 @@
 
-PACKAGE := 'cosmic-ext-applet-clipboard-manager'
-VERSION := '0.1.0'
+PACKAGE := 'cosmic-ext-applet-emoji-selector'
+VERSION := '0.1.4'
 # can't be latest here
-COMMIT := '22c960d3acbb30a56440add20858818ca91f78ee'
-REPO := 'https://github.com/wiiznokes/clipboard-manager'
+COMMIT := 'a5d94f611acfafca6f203d05b07770f26fb8d69d'
+REPO := 'https://github.com/leb-kuchen/cosmic-ext-applet-emoji-selector.git'
 
 all: vendor sources spec build
 
