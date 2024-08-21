@@ -20,7 +20,7 @@ check_variable() {
 
 check_variable PACKAGE
 VERSION=${VERSION:-"0.1.0"}
-COMMIT=${VERSION:-"latest"}
+COMMIT=${COMMIT:-"latest"}
 check_variable REPO
 VENDOR=${VENDOR:-1}
 KEEP_REPO=${KEEP_REPO:-0}

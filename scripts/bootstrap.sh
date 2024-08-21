@@ -1,7 +1,7 @@
 #!/bin/bash -xe
 
-PACKAGE=cosmic-ext-applet-clipboard-manager
-REPO=https://github.com/wiiznokes/clipboard-manager
+export PACKAGE=cosmic-ext-applet-clipboard-manager
+export REPO=https://github.com/wiiznokes/clipboard-manager
 
 git clone https://github.com/wiiznokes/cosmic-applets-unofficial-packaging.git
 cp cosmic-applets-unofficial-packaging/rpms/$PACKAGE/* .
