@@ -9,7 +9,7 @@ all: init sources spec build
 
 init:
     cp rpms/{{PACKAGE}}/* .
-    . ./scripts/srpm.sh {{PACKAGE}} {{VERSION}} {{COMMIT}} {{REPO}} 1 1
+    ./scripts/srpm.sh {{PACKAGE}} {{VERSION}} {{COMMIT}} {{REPO}} 1 1
 
 sources:
     cp vendor-* ~/rpmbuild/SOURCES/

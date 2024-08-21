@@ -24,7 +24,7 @@ if [ ! -e "$NAME" ]; then
     git clone --recurse-submodules $REPO $NAME
 fi
 
-cd $NAME-$COMMIT
+cd $NAME
 
 # Get latest COMMIT hash if COMMIT is set to latest
 if [[ "$COMMIT" == "latest" ]]; then
@@ -42,13 +42,13 @@ if [ "$VENDOR" -eq 1 ]; then
     echo "VENDOR=1"
     # Vendor dependencies and zip vendor
     cargo vendor >../vendor-config-$SHORTCOMMIT.toml
-    tar -pczf vendor-$SHORTCOMMIT.tar.gz vendor && mv vendor-$SHORTCOMMIT.tar.gz ../
+    tar -pczf ../vendor-$SHORTCOMMIT.tar.gz vendor
 fi
 
 cd ..
 
 if [ "$KEEP_REPO" -ne 1 ]; then
-    rm -rf $NAME-$COMMIT
+    rm -rf $NAME
 else
     echo "KEEP_REPO=1"
 fi
