@@ -1,22 +1,24 @@
+set working-directory := 'dev'
+set export
 
 PACKAGE := 'cosmic-ext-applet-clipboard-manager'
+REPO := 'https://github.com/wiiznokes/clipboard-manager.git'
 VERSION := '0.1.0'
 COMMIT := 'latest'
-REPO := 'https://github.com/wiiznokes/clipboard-manager.git'
 
 all: init sources spec build
 
 init:
-    cp rpms/{{PACKAGE}}/* .
-    ./scripts/srpm.sh {{PACKAGE}} {{VERSION}} {{COMMIT}} {{REPO}} 1 1
+    cp ../rpms/{{PACKAGE}}/* .
+    ../scripts/srpm.sh
 
 sources:
     cp vendor-* ~/rpmbuild/SOURCES/
     cp *.patch ~/rpmbuild/SOURCES/ || true
 
 spec:
-    cp rpms/{{PACKAGE}}/{{PACKAGE}}.spec .
-    . ./scripts/srpm.sh {{PACKAGE}} {{VERSION}} {{COMMIT}} {{REPO}} 0 1
+    cp ../rpms/{{PACKAGE}}/{{PACKAGE}}.spec .
+    VENDOR=0 ../scripts/srpm.sh
     cp {{PACKAGE}}.spec ~/rpmbuild/SPECS/
 
 build:

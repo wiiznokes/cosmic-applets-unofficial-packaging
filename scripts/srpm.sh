@@ -8,7 +8,6 @@
 # COMMIT: latest or sha
 # REPO: link
 # VENDOR: 0 or 1
-# KEEP_REPO: 0 or 1
 
 check_variable() {
     local var_name=$1
@@ -23,7 +22,6 @@ VERSION=${VERSION:-"0.1.0"}
 COMMIT=${COMMIT:-"latest"}
 check_variable REPO
 VENDOR=${VENDOR:-1}
-KEEP_REPO=${KEEP_REPO:-0}
 
 if [ ! -e "$PACKAGE" ]; then
     git clone --recurse-submodules $REPO $PACKAGE
@@ -51,12 +49,6 @@ if [ "$VENDOR" -eq 1 ]; then
 fi
 
 cd ..
-
-if [ "$KEEP_REPO" -ne 1 ]; then
-    rm -rf $PACKAGE
-else
-    echo "KEEP_REPO=1"
-fi
 
 # Make replacements to specfile
 sed -i "/^Version: / s/.*/Version:           $VERSION~^%{commitdate}git%{shortcommit}/" $PACKAGE.spec
