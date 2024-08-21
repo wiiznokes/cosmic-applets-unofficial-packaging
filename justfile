@@ -1,9 +1,8 @@
 
-PACKAGE := 'cosmic-ext-applet-minimon'
+PACKAGE := 'cosmic-ext-applet-clipboard-manager'
 VERSION := '0.1.0'
-# can't be latest here
 COMMIT := 'latest'
-REPO := 'https://github.com/Hyperchaotic/minimon-applet.git'
+REPO := 'https://github.com/wiiznokes/clipboard-manager.git'
 
 all: init sources spec build
 
