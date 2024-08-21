@@ -1,10 +1,13 @@
 #!/bin/bash -xe
 
-export PACKAGE=cosmic-ext-applet-clipboard-manager
-export REPO=https://github.com/wiiznokes/clipboard-manager
+export NAME=cosmic-ext-applet-clipboard-manager
 
-git clone https://github.com/wiiznokes/cosmic-applets-unofficial-packaging.git
-cp cosmic-applets-unofficial-packaging/rpms/$PACKAGE/* .
-cp cosmic-applets-unofficial-packaging/scripts/srpm.sh .
+SCRIPT=srpm.sh
+RPM_REPO=https://github.com/wiiznokes/cosmic-applets-unofficial-packaging.git
+RPM_REPO_NAME=cosmic-applets-unofficial-packaging
 
-./srpm.sh
+git clone $RPM_REPO
+cp $RPM_REPO_NAME/rpms/$NAME/* .
+cp $RPM_REPO_NAME/scripts/$SCRIPT .
+
+./$SCRIPT

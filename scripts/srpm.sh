@@ -3,7 +3,7 @@
 # clone repo, detect last commit, vendor deps, update specfile
 #
 #
-# PACKAGE: package name
+# NAME: package name
 # VERSION: tag, semver
 # COMMIT: latest or sha
 # REPO: link
@@ -17,17 +17,17 @@ check_variable() {
     fi
 }
 
-check_variable PACKAGE
+check_variable NAME
 VERSION=${VERSION:-"0.1.0"}
 COMMIT=${COMMIT:-"latest"}
 check_variable REPO
 VENDOR=${VENDOR:-1}
 
-if [ ! -e "$PACKAGE" ]; then
-    git clone --recurse-submodules $REPO $PACKAGE
+if [ ! -e "$NAME" ]; then
+    git clone --recurse-submodules $REPO $NAME
 fi
 
-cd $PACKAGE
+cd $NAME
 
 # Get latest COMMIT hash if COMMIT is set to latest
 if [[ "$COMMIT" == "latest" ]]; then
@@ -51,8 +51,7 @@ fi
 cd ..
 
 # Make replacements to specfile
-sed -i "/^Version: / s/.*/Version:           $VERSION~^%{commitdate}git%{shortcommit}/" $PACKAGE.spec
-sed -i "/^%global commit / s/.*/%global commit $COMMIT/" $PACKAGE.spec
-
-sed -i "/^%global commitdate / s/.*/%global commitdate $COMMITDATE/" $PACKAGE.spec
-sed -i "/^%global commitdatestring / s/.*/%global commitdatestring $COMMITDATESTRING/" $PACKAGE.spec
+sed -i "/^Version: / s/.*/Version:           $VERSION~^%{commitdate}git%{shortcommit}/" $NAME.spec
+sed -i "/^%global commit / s/.*/%global commit $COMMIT/" $NAME.spec
+sed -i "/^%global commitdate / s/.*/%global commitdate $COMMITDATE/" $NAME.spec
+sed -i "/^%global commitdatestring / s/.*/%global commitdatestring $COMMITDATESTRING/" $NAME.spec
