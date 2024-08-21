@@ -8,21 +8,16 @@ REPO := 'https://github.com/Hyperchaotic/minimon-applet.git'
 all: init sources spec build
 
 init:
-    mkdir -p dev
-    cd dev
-    cp ../rpms/{{PACKAGE}}/{{PACKAGE}}.spec .
-    . ../scripts/srpm.sh {{PACKAGE}} {{VERSION}} {{COMMIT}} {{REPO}} 1 1
+    cp rpms/{{PACKAGE}}/* .
+    . ./scripts/srpm.sh {{PACKAGE}} {{VERSION}} {{COMMIT}} {{REPO}} 1 1
 
 sources:
-    cd dev
     cp vendor-* ~/rpmbuild/SOURCES/
     cp *.patch ~/rpmbuild/SOURCES/ || true
 
 spec:
-    cd dev
-    cp ../rpms/{{PACKAGE}}/{{PACKAGE}}.spec .
-    
-    . ../scripts/srpm.sh {{PACKAGE}} {{VERSION}} {{COMMIT}} {{REPO}} 0 1
+    cp rpms/{{PACKAGE}}/{{PACKAGE}}.spec .
+    . ./scripts/srpm.sh {{PACKAGE}} {{VERSION}} {{COMMIT}} {{REPO}} 0 1
     cp {{PACKAGE}}.spec ~/rpmbuild/SPECS/
 
 build:

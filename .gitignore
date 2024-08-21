@@ -1,7 +1,3 @@
-__pycache__/
-*.py[cod]
-*$py.class
-*.tar.xz
 /*.spec
-/repo
-/dev
+/cosmic-ext-applet-*
+/vendor-*
