@@ -1,6 +1,7 @@
 #!/bin/bash -xe
 
 export NAME=cosmic-ext-applet-clipboard-manager
+export REPO=https://github.com/wiiznokes/clipboard-manager.git
 
 SCRIPT=srpm.sh
 RPM_REPO=https://github.com/wiiznokes/cosmic-applets-unofficial-packaging.git
