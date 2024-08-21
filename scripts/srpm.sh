@@ -1,59 +1,58 @@
-#!/bin/bash -x
+#!/bin/bash -xe
 
-# NAME of the crate/package
-NAME=$1
-SOURCE_NAME=$2
-# VERSION of the crate/package
-VERSION=$3
-# COMMIT to target (latest == master)
-COMMIT=$4
-# REPO link
-REPO=$5
-# VENDOR?
-VENDOR=$6
+# clone repo, detect last commit, vendor deps, update specfile
+#
+#
+# PACKAGE: package name
+# VERSION: tag, semver
+# COMMIT: latest or sha
+# REPO: link
+# VENDOR: 0 or 1
 
-LATEST="LATEST"
+check_variable() {
+    local var_name=$1
+    if [ -z "${!var_name+x}" ]; then
+        echo "Error: '$var_name' is not defined."
+        exit 1
+    fi
+}
 
-# Clone REPO and cd into it
-mkdir $SOURCE_NAME-$COMMIT && cd $SOURCE_NAME-$COMMIT && git clone --recurse-submodules $REPO .
+check_variable PACKAGE
+VERSION=${VERSION:-"0.1.0"}
+COMMIT=${COMMIT:-"latest"}
+check_variable REPO
+VENDOR=${VENDOR:-1}
 
-# Get latest COMMIT hash if COMMIT is set to latest
-if [[ "$COMMIT" == "$LATEST" ]]
-then
-    COMMIT=$(git rev-parse HEAD)
-    cd .. && mv $SOURCE_NAME-LATEST $SOURCE_NAME-$COMMIT && cd $SOURCE_NAME-$COMMIT
+if [ ! -e "$PACKAGE" ]; then
+    git clone --recurse-submodules $REPO $PACKAGE
 fi
 
-# Reset to specified COMMIT
+cd $PACKAGE
+
+# Get latest COMMIT hash if COMMIT is set to latest
+if [[ "$COMMIT" == "latest" ]]; then
+    COMMIT=$(git rev-parse HEAD)
+fi
+
+SHORTCOMMIT=$(echo ${COMMIT:0:7})
+
 git reset --hard $COMMIT
 
-COMMITDATE=$(git log -1 --format=%cd --date=format:%Y%m%d.%H%M%S)
+COMMITDATE=$(git log -1 --format=%cd --date=format:%Y%m%d)
 COMMITDATESTRING=$(git log -1 --format=%cd --date=iso)
 
 if [ "$VENDOR" -eq 1 ]; then
     echo "VENDOR=1"
     # Vendor dependencies and zip vendor
-    cargo vendor > ../vendor-config.toml
-    tar -pczf vendor.tar.gz vendor && mv vendor.tar.gz ../vendor.tar.gz
-    # Back into parent directory
-    rm -rf vendor
-    cd ..
-else
-    cd ..
+    cargo vendor >../vendor-config-$SHORTCOMMIT.toml
+    tar -pczf ../vendor-$SHORTCOMMIT.tar.gz vendor
 fi
 
-# Zip SOURCE
-tar -pczf $SOURCE_NAME-$COMMIT.tar.gz $SOURCE_NAME-$COMMIT
-rm -rf $SOURCE_NAME-$COMMIT
+cd ..
 
 # Make replacements to specfile
-sed -i "/^%global ver / s/.*/%global ver $VERSION/" $NAME.spec
-sed -i "/^%global commit / s/.*/%global commit $COMMIT/" $NAME.spec
+sed -i "/^Version: / s/.*/Version:           $VERSION~^%{commitdate}git%{shortcommit}/" $PACKAGE.spec
+sed -i "/^%global commit / s/.*/%global commit $COMMIT/" $PACKAGE.spec
 
-sed -i "/^%global commitdate / s/.*/%global commitdate $COMMITDATE/" $NAME.spec
-sed -i "/^%global commitdatestring / s/.*/%global commitdatestring $COMMITDATESTRING/" $NAME.spec
-
-# Should have these sources
-# SOURCE_NAME-COMMIT.tar.gz
-# vendor.tar.gz
-# vendor-config.toml
+sed -i "/^%global commitdate / s/.*/%global commitdate $COMMITDATE/" $PACKAGE.spec
+sed -i "/^%global commitdatestring / s/.*/%global commitdatestring $COMMITDATESTRING/" $PACKAGE.spec

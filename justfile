@@ -1,24 +1,28 @@
+set working-directory := 'dev'
+set export
 
-PACKAGE := 'cosmic-ext-applet-minimon'
+PACKAGE := 'cosmic-ext-applet-clipboard-manager'
+REPO := 'https://github.com/wiiznokes/clipboard-manager.git'
 VERSION := '0.1.0'
-# can't be latest here
-COMMIT := '78f4172d55484846e8ec214cdc0a8de8734f132f'
-REPO := 'https://github.com/Hyperchaotic/minimon-applet.git'
+COMMIT := 'latest'
 
-all: vendor sources spec build
+all: init sources spec build
 
-vendor:
-    . ./scripts/vendor-srpm.sh {{PACKAGE}} {{VERSION}} {{COMMIT}} rpms/{{PACKAGE}}/{{PACKAGE}}.spec {{REPO}}
+init:
+    cp ../rpms/{{PACKAGE}}/* .
+    ../scripts/srpm.sh
 
 sources:
-    cp {{PACKAGE}}-*.tar.xz ~/rpmbuild/SOURCES/
+    cp vendor-* ~/rpmbuild/SOURCES/
+    cp *.patch ~/rpmbuild/SOURCES/ || true
 
 spec:
-    . ./scripts/vendor-srpm.sh {{PACKAGE}} {{VERSION}} {{COMMIT}} rpms/{{PACKAGE}}/{{PACKAGE}}.spec {{REPO}} 1
+    cp ../rpms/{{PACKAGE}}/{{PACKAGE}}.spec .
+    VENDOR=0 ../scripts/srpm.sh
     cp {{PACKAGE}}.spec ~/rpmbuild/SPECS/
 
 build:
-    rpmbuild -bb ~/rpmbuild/SPECS/{{PACKAGE}}.spec
+    rpmbuild --undefine=_disable_source_fetch -bb ~/rpmbuild/SPECS/{{PACKAGE}}.spec
 
 fast-build:
     rpmbuild -bb --short-circuit ~/rpmbuild/SPECS/{{PACKAGE}}.spec
