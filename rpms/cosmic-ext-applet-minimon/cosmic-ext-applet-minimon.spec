@@ -8,12 +8,13 @@ ExcludeArch: %{ix86}
 %global crate cosmic-applet-minimon
 %global id com.github.hyperchaotic.cosmic-applet-minimon
 
-%global ver ###
 %global commit ###
-%global date ###
+%global shortcommit %{sub %{commit} 1 7}
+%global commitdatestring ###
+%global commitdate ###
 
 Name:           cosmic-ext-applet-minimon
-Version:        %{ver}~git%{date}.%{sub %{commit} 1 7}
+Version: ###
 Release:        %autorelease
 Summary:        A little applet for displaying total CPU load and/or memory usage
 
@@ -22,8 +23,9 @@ License:        GPL-3.0
 
 URL:            https://github.com/Hyperchaotic/minimon-applet.git
 	
-Source:         %{name}-%{commit}.tar.xz
-Source:         %{name}-%{commit}-vendor.tar.xz
+Source0:        https://github.com/Hyperchaotic/minimon-applet/archive/%{commit}.tar.gz
+Source1:        vendor-%{shortcommit}.tar.gz
+Source2:        vendor-config-%{shortcommit}.toml
 
 BuildRequires:  cargo-rpm-macros >= 26
 BuildRequires:  rustc

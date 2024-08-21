@@ -2,19 +2,27 @@
 PACKAGE := 'cosmic-ext-applet-minimon'
 VERSION := '0.1.0'
 # can't be latest here
-COMMIT := '78f4172d55484846e8ec214cdc0a8de8734f132f'
+COMMIT := 'latest'
 REPO := 'https://github.com/Hyperchaotic/minimon-applet.git'
 
-all: vendor sources spec build
+all: init sources spec build
 
-vendor:
-    . ./scripts/vendor-srpm.sh {{PACKAGE}} {{VERSION}} {{COMMIT}} rpms/{{PACKAGE}}/{{PACKAGE}}.spec {{REPO}}
+init:
+    mkdir -p dev
+    cd dev
+    cp ../rpms/{{PACKAGE}}/{{PACKAGE}}.spec .
+    . ../scripts/srpm.sh {{PACKAGE}} {{VERSION}} {{COMMIT}} {{REPO}} 1 1
 
 sources:
-    cp {{PACKAGE}}-*.tar.xz ~/rpmbuild/SOURCES/
+    cd dev
+    cp vendor-* ~/rpmbuild/SOURCES/
+    cp *.patch ~/rpmbuild/SOURCES/ || true
 
 spec:
-    . ./scripts/vendor-srpm.sh {{PACKAGE}} {{VERSION}} {{COMMIT}} rpms/{{PACKAGE}}/{{PACKAGE}}.spec {{REPO}} 1
+    cd dev
+    cp ../rpms/{{PACKAGE}}/{{PACKAGE}}.spec .
+    
+    . ../scripts/srpm.sh {{PACKAGE}} {{VERSION}} {{COMMIT}} {{REPO}} 0 1
     cp {{PACKAGE}}.spec ~/rpmbuild/SPECS/
 
 build:
