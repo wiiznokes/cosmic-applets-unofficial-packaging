@@ -1,30 +1,35 @@
 #!/bin/bash -xe
 
 # clone repo, detect last commit, vendor deps, update specfile
+#
+#
+# PACKAGE: package name
+# VERSION: tag, semver
+# COMMIT: latest or sha
+# REPO: link
+# VENDOR: 0 or 1
+# KEEP_REPO: 0 or 1
 
-if [ "$#" -lt 6 ]; then
-    echo "Error: Less than six arguments provided."
-    exit 1
+check_variable() {
+    local var_name=$1
+    if [ -z "${!var_name+x}" ]; then
+        echo "Error: '$var_name' is not defined."
+        exit 1
+    fi
+}
+
+check_variable PACKAGE
+VERSION=${VERSION:-"0.1.0"}
+COMMIT=${VERSION:-"latest"}
+check_variable REPO
+VENDOR=${VENDOR:-1}
+KEEP_REPO=${KEEP_REPO:-0}
+
+if [ ! -e "$PACKAGE" ]; then
+    git clone --recurse-submodules $REPO $PACKAGE
 fi
 
-# NAME of the crate/package
-NAME=$1
-# VERSION of the crate/package
-VERSION=$2
-# COMMIT to target (latest == master)
-COMMIT=$3
-# REPO link
-REPO=$4
-# VENDOR?
-VENDOR=$5
-# KEEP_REPO?
-KEEP_REPO=$6
-
-if [ ! -e "$NAME" ]; then
-    git clone --recurse-submodules $REPO $NAME
-fi
-
-cd $NAME
+cd $PACKAGE
 
 # Get latest COMMIT hash if COMMIT is set to latest
 if [[ "$COMMIT" == "latest" ]]; then
@@ -48,14 +53,14 @@ fi
 cd ..
 
 if [ "$KEEP_REPO" -ne 1 ]; then
-    rm -rf $NAME
+    rm -rf $PACKAGE
 else
     echo "KEEP_REPO=1"
 fi
 
 # Make replacements to specfile
-sed -i "/^Version: / s/.*/Version:           $VERSION~^%{commitdate}git%{shortcommit}/" $NAME.spec
-sed -i "/^%global commit / s/.*/%global commit $COMMIT/" $NAME.spec
+sed -i "/^Version: / s/.*/Version:           $VERSION~^%{commitdate}git%{shortcommit}/" $PACKAGE.spec
+sed -i "/^%global commit / s/.*/%global commit $COMMIT/" $PACKAGE.spec
 
-sed -i "/^%global commitdate / s/.*/%global commitdate $COMMITDATE/" $NAME.spec
-sed -i "/^%global commitdatestring / s/.*/%global commitdatestring $COMMITDATESTRING/" $NAME.spec
+sed -i "/^%global commitdate / s/.*/%global commitdate $COMMITDATE/" $PACKAGE.spec
+sed -i "/^%global commitdatestring / s/.*/%global commitdatestring $COMMITDATESTRING/" $PACKAGE.spec
