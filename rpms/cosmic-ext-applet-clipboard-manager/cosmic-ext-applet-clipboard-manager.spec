@@ -13,7 +13,6 @@ Version: ###
 Release:        %autorelease
 Summary:        Clipboard manager for COSMIC
 
-SourceLicense:  GPL-3.0
 License:        GPL-3.0
 
 URL:            https://github.com/wiiznokes/clipboard-manager.git

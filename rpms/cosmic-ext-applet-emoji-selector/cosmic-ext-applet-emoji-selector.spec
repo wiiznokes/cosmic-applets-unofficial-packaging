@@ -16,8 +16,7 @@ Version:        %{ver}~git%{date}.%{sub %{commit} 1 7}
 Release:        %autorelease
 Summary:        Emoji Selector for COSMIC
 
-SourceLicense:  MPL-2.0
-License:        MPL-2.0
+License:        MPL-2.0 MIT
 
 URL:            https://github.com/leb-kuchen/cosmic-ext-applet-emoji-selector.git
 	
@@ -68,7 +67,8 @@ just rootdir=%{buildroot} prefix=%{_prefix} install
 %endif
 
 %files
-%license LICENSE
+%license LICENSE-MIT
+%license LICENSE-MPL-2
 %license LICENSE.dependencies
 %license cargo-vendor.txt
 %doc README.md

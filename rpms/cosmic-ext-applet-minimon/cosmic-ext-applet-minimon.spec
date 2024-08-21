@@ -15,7 +15,6 @@ Version: ###
 Release:        %autorelease
 Summary:        A little applet for displaying total CPU load and/or memory usage
 
-SourceLicense:  GPL-3.0
 License:        GPL-3.0
 
 URL:            https://github.com/Hyperchaotic/minimon-applet.git
