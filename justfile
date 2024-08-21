@@ -21,7 +21,7 @@ spec:
     cp {{PACKAGE}}.spec ~/rpmbuild/SPECS/
 
 build:
-    rpmbuild -bb ~/rpmbuild/SPECS/{{PACKAGE}}.spec
+    rpmbuild --undefine=_disable_source_fetch -bb ~/rpmbuild/SPECS/{{PACKAGE}}.spec
 
 fast-build:
     rpmbuild -bb --short-circuit ~/rpmbuild/SPECS/{{PACKAGE}}.spec
