@@ -3,13 +3,13 @@ ExcludeArch: %{ix86}
 %bcond_without check
 
 
-
-%global ver ###
 %global commit ###
-%global date ###
+%global shortcommit %{sub %{commit} 1 7}
+%global commitdatestring ###
+%global commitdate ###
 
 Name:           cosmic-ext-applet-ollama
-Version:        %{ver}~git%{date}.%{sub %{commit} 1 7}
+Version: ###
 Release:        %autorelease
 Summary:        Ollama applet for COSMIC Desktop 
 
