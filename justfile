@@ -1,9 +1,9 @@
 
-PACKAGE := 'cosmic-ext-applet-emoji-selector'
-VERSION := '0.1.4'
+PACKAGE := 'cosmic-ext-applet-minimon'
+VERSION := '0.1.0'
 # can't be latest here
-COMMIT := 'a5d94f611acfafca6f203d05b07770f26fb8d69d'
-REPO := 'https://github.com/leb-kuchen/cosmic-ext-applet-emoji-selector.git'
+COMMIT := '78f4172d55484846e8ec214cdc0a8de8734f132f'
+REPO := 'https://github.com/Hyperchaotic/minimon-applet.git'
 
 all: vendor sources spec build
 
@@ -19,3 +19,6 @@ spec:
 
 build:
     rpmbuild -bb ~/rpmbuild/SPECS/{{PACKAGE}}.spec
+
+fast-build:
+    rpmbuild -bb --short-circuit ~/rpmbuild/SPECS/{{PACKAGE}}.spec
