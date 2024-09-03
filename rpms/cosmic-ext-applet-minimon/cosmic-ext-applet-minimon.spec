@@ -30,7 +30,7 @@ BuildRequires:  cargo
 BuildRequires:  just
 BuildRequires:  libxkbcommon-devel
 BuildRequires:  git-core
-BuildRequires:  fontconfig
+BuildRequires:  fontconfig-devel
 
 %global _description %{expand:
 %{summary}.}
