@@ -74,7 +74,6 @@ just rootdir=%{buildroot} prefix=%{_prefix} install
 %{_bindir}/%{name}
 %{_datadir}/applications/io.github.wiiznokes.%{name}.desktop
 %{_datadir}/icons/hicolor/scalable/apps/io.github.wiiznokes.%{name}-symbolic.svg
-%{_datadir}/%{name}/migrations/*
 %{_prefix}/etc/profile.d/%{name}.sh
 
 %changelog
