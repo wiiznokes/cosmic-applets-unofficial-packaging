@@ -45,6 +45,9 @@ if [ "$VENDOR" -eq 1 ]; then
     echo "VENDOR=1"
     # Vendor dependencies and zip vendor
     cargo vendor >../vendor-config-$SHORTCOMMIT.toml
+
+    chmod -x ./vendor/ipnet/src/lib.rs || true
+    
     tar -pczf ../vendor-$SHORTCOMMIT.tar.gz vendor
 fi
 
