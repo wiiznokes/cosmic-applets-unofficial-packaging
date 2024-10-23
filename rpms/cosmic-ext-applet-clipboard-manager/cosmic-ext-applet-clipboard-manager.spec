@@ -60,6 +60,7 @@ sed 's/\(.*\) (.*#\(.*\))/\1+git\2/' -i cargo-vendor.txt
 
 %install
 just rootdir=%{buildroot} prefix=%{_prefix} install
+just rootdir=%{buildroot} prefix=%{_prefix} install-schema
 
 %if %{with check}
 %check
@@ -75,6 +76,7 @@ just rootdir=%{buildroot} prefix=%{_prefix} install
 %{_datadir}/applications/io.github.wiiznokes.%{name}.desktop
 %{_datadir}/icons/hicolor/scalable/apps/io.github.wiiznokes.%{name}-symbolic.svg
 %{_sysconfdir}/profile.d/%{name}.sh
+%{_datadir}/configurator/io.github.wiiznokes.%{name}.json
 
 %changelog
 %autochangelog
