@@ -1,10 +1,10 @@
 set working-directory := 'dev'
 set export
 
-NAME := 'cosmic-ext-applet-clipboard-manager'
-REPO := 'https://github.com/wiiznokes/clipboard-manager.git'
+NAME := 'cosmic-ext-applet-external-monitor-brightness'
+REPO := 'https://github.com/cosmic-utils/cosmic-ext-applet-external-monitor-brightness.git'
 VERSION := '0.1.0'
-COMMIT := 'latest'
+COMMIT := 'f60e982441fd7b7f11523f8e7eeab168dce17b40'
 
 all: init sources spec build
 
@@ -26,3 +26,7 @@ build:
 
 fast-build:
     rpmbuild -bb --short-circuit ~/rpmbuild/SPECS/{{NAME}}.spec
+
+clean:
+    rm -rf ./*
+    touch .keep
