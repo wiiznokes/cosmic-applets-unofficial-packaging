@@ -15,9 +15,9 @@ Summary:        External Monitor Brightness Applet for COSMIC
 
 License:        GPL-3.0
 
-URL:            https://github.com/maciekk64/cosmic-ext-applet-external-monitor-brightness.git
+URL:            https://github.com/cosmic-utils/cosmic-ext-applet-external-monitor-brightness.git
 	
-Source0:        https://github.com/maciekk64/%{name}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
+Source0:        https://github.com/cosmic-utils/%{name}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
 Source1:        vendor-%{shortcommit}.tar.gz
 Source2:        vendor-config-%{shortcommit}.toml
 

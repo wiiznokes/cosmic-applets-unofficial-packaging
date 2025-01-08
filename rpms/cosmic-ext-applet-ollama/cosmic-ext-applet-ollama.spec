@@ -15,9 +15,9 @@ Summary:        Ollama applet for COSMIC Desktop
 
 License:        GPL-3.0
 
-URL:            https://github.com/elevenhsoft/cosmic-ext-applet-ollama.git
+URL:            https://github.com/cosmic-utils/cosmic-ext-applet-ollama.git
 
-Source0:        https://github.com/elevenhsoft/%{name}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
+Source0:        https://github.com/cosmic-utils/%{name}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
 Source1:        vendor-%{shortcommit}.tar.gz
 Source2:        vendor-config-%{shortcommit}.toml
 
